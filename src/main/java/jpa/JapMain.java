@@ -16,44 +16,31 @@ public class JapMain {
         tx.begin();
         try {
 
-
+//
 //            Member member = new Member();
-//            member.setId(4L);
-//            member.setName("aaa");
-            //업데이트 쿼리 발생
-//            Member updateTagetMember =  em.find(Member.class,1L);
-//            updateTagetMember.setName("뱅스");
-//            em.remove(member);
-            // 다중 쿼리
-            List<Member> members = em.createQuery("select m from Member as m",Member.class)
-                    .setFirstResult(2)
-                    .setMaxResults(3)
-                    .getResultList();
-            //JPQL을 사용하더라도 영속성을 유지한다.
-            members.get(0).setName("키키");
+//            member.setId(12L);
+//            member.setName("비영속");
 
+            //1차캐시에서 데이터를 가져옴
+            //Member findMember = em.find(Member.class,12L);
+            //System.out.println(findMember.getId());
+            System.out.println("1차캐시 검증");
 
-            //영속성 컨텍스트
-            Member member = new Member();
-            member.setId(12L);
-            member.setName("비영속");
+            //1차 케시에 의해 1번만 조회한다.
+            Member findMember1 =  em.find(Member.class,10L);
+            Member findMember2 = em.find(Member.class,10L);
 
-            //영속 -- 디비에 저장 되지않음
-            Member findMember = em.find(Member.class,12L);
+            //영속성 컨텍스트 동일성 보장
+            if(findMember1 == findMember2){
+                System.out.println("참이다");
+            }
 
-
-            //비영속성 -- 디테치 이후 반영되지 않음 분리상태이기 때문
-            em.detach(member);
-            member.setName("비영속성2");
-            System.out.println("=========== 이후");
-
-
-            //저장
 
             tx.commit(); // 커밋 시점에 db연결
 
         }catch (Exception e){
             tx.rollback();
+            System.out.println(e);
         }finally {
             em.close();
         }

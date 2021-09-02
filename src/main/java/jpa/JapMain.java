@@ -16,25 +16,13 @@ public class JapMain {
         tx.begin();
         try {
 
-//
-//            Member member = new Member();
-//            member.setId(12L);
-//            member.setName("비영속");
 
-            //1차캐시에서 데이터를 가져옴
-            //Member findMember = em.find(Member.class,12L);
-            //System.out.println(findMember.getId());
-            System.out.println("1차캐시 검증");
+            Member m1 = new Member(21L,"1");
+            Member m2 = new Member(22L,"2");
+            em.persist(m1); // 지연 평가됨
+            em.persist(m2);
 
-            //1차 케시에 의해 1번만 조회한다.
-            Member findMember1 =  em.find(Member.class,10L);
-            Member findMember2 = em.find(Member.class,10L);
-
-            //영속성 컨텍스트 동일성 보장
-            if(findMember1 == findMember2){
-                System.out.println("참이다");
-            }
-
+            System.out.println("=======END===");
 
             tx.commit(); // 커밋 시점에 db연결
 

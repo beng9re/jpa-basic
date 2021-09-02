@@ -16,11 +16,9 @@ public class JapMain {
         tx.begin();
         try {
 
-
-            Member m1 = new Member(21L,"1");
-            Member m2 = new Member(22L,"2");
-            em.persist(m1); // 지연 평가됨
-            em.persist(m2);
+            //변경 감지
+            Member findMember = em.find(Member.class,21L);
+            findMember.setName("3");
 
             System.out.println("=======END===");
 

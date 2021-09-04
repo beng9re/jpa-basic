@@ -15,13 +15,17 @@ public class JapMain {
         tx.begin();
         try {
             Member member = new Member();
-            member.setId(3L);
+            member.setId(5L);
             member.setName("aaa");
             em.persist(member);
-            tx.commit();
+
+
+
+
 
         }catch (Exception e){
             tx.rollback();
+            e.printStackTrace();
         }finally {
             em.close();
         }

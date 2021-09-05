@@ -19,8 +19,11 @@ public class JapMain {
             member.setName("aaa");
             em.persist(member);
 
+            PrimaryKeyMapping pm = new PrimaryKeyMapping();
+            pm.setName("hi");
+            em.persist(pm);
 
-
+            tx.commit();
 
 
         }catch (Exception e){

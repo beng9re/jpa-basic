@@ -6,41 +6,48 @@ import java.util.Date;
 
 @Entity
 public class Member {
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", team=" + team +
+                '}';
+    }
 
     @Id
+    @GeneratedValue
     private Long id;
 
     @Column(unique = true,length = 10)
     private String name;
 
-    private Integer age;
+    @ManyToOne //다 대 1 팀이 여러개
+    @JoinColumn(name = "team_id")
+    private Team team;
 
-    //기본타입은 EnumType.ORDINAL 사용하지 않는다 오류의 소지가 가능
-    @Enumerated(EnumType.STRING)
-    private RoleType roleType;
+    public Team getTeam() {
+        return team;
+    }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
+    public void setTeam(Team team) {
+        this.team = team;
+    }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastModifiedDate;
-
-    @Lob
-    private String decription;
-
-    //DDL을 생성되지않음
-    @Transient
-    private int temp;
+    public Long getId() {
+        return id;
+    }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getName() {
         return name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
+

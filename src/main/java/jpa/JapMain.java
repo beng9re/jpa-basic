@@ -14,16 +14,25 @@ public class JapMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
+
+            Team team = new Team();
+            team.setName("팀");
+            em.persist(team);
+
             Member member = new Member();
-            member.setId(5L);
             member.setName("aaa");
+            member.setTeam(team);
+
+
             em.persist(member);
 
-            PrimaryKeyMapping pm = new PrimaryKeyMapping();
-            pm.setName("hi");
-            em.persist(pm);
+            em.flush(); //insert 수행
+            em.clear(); //영속성켄텍스트 초기화
+            System.out.println(em.find(Member.class,2L));
 
             tx.commit();
+
+
 
 
         }catch (Exception e){

@@ -22,13 +22,16 @@ public class JapMain {
             Member member = new Member();
             member.setName("aaa");
             member.setTeam(team);
-
-
             em.persist(member);
 
-            em.flush(); //insert 수행
-            em.clear(); //영속성켄텍스트 초기화
-            System.out.println(em.find(Member.class,2L));
+
+
+            Member findMemeber = em.find(Member.class,member.getId());
+            team.setName("hh");
+
+            System.out.println(findMemeber);
+
+
 
             tx.commit();
 

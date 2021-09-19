@@ -6,14 +6,6 @@ import java.util.Date;
 
 @Entity
 public class Member {
-    @Override
-    public String toString() {
-        return "Member{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", team=" + team +
-                '}';
-    }
 
     @Id
     @GeneratedValue
@@ -32,6 +24,7 @@ public class Member {
 
     public void setTeam(Team team) {
         this.team = team;
+        team.getMembers().add(this);
     }
 
     public Long getId() {

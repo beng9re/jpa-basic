@@ -20,18 +20,6 @@ public class Member {
     @Column(unique = true,length = 10)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(insertable = false, updatable = false) // 읽기 전용상태를 만듬
-    private Team team;
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
-    }
-
     public Long getId() {
         return id;
     }

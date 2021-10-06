@@ -1,8 +1,14 @@
 package jpa;
 
-import javax.persistence.*;
-import javax.xml.crypto.Data;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Member {
@@ -14,8 +20,8 @@ public class Member {
     @Column(unique = true,length = 10)
     private String name;
 
-    @ManyToOne //다 대 1 팀이 여러개
-    @JoinColumn(name = "team_id")
+    @ManyToOne
+    @JoinColumn(insertable = false, updatable = false) // 읽기 전용상태를 만듬
     private Team team;
 
     public Team getTeam() {
@@ -24,7 +30,6 @@ public class Member {
 
     public void setTeam(Team team) {
         this.team = team;
-        team.getMembers().add(this);
     }
 
     public Long getId() {

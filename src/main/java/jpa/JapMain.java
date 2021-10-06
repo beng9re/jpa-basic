@@ -15,23 +15,16 @@ public class JapMain {
         tx.begin();
         try {
 
-            Team team = new Team();
-            team.setName("팀");
-            em.persist(team);
-
             Member member = new Member();
-            member.setName("aaa");
-            member.setTeam(team);
+            member.setName("member1");
+
             em.persist(member);
 
+            Team team = new Team();
+            team.setName("teamA");
+            team.getMembers().add(member);
 
-
-            Member findMemeber = em.find(Member.class,member.getId());
-            team.setName("hh");
-
-            System.out.println(findMemeber);
-
-
+            em.persist(team);
 
             tx.commit();
 

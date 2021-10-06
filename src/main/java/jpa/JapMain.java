@@ -4,7 +4,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.List;
 
 public class JapMain {
     public static void main(String[] args) {
@@ -16,17 +15,25 @@ public class JapMain {
         tx.begin();
         try {
 
-            //변경 감지
-            Member findMember = em.find(Member.class,21L);
-            findMember.setName("3");
+            Member member = new Member();
+            member.setName("member1");
 
-            System.out.println("=======END===");
+            em.persist(member);
 
-            tx.commit(); // 커밋 시점에 db연결
+            Team team = new Team();
+            team.setName("teamA");
+            team.getMembers().add(member);
+
+            em.persist(team);
+
+            tx.commit();
+
+
+
 
         }catch (Exception e){
             tx.rollback();
-            System.out.println(e);
+            e.printStackTrace();
         }finally {
             em.close();
         }

@@ -1,24 +1,30 @@
 package jpa;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 @Entity
-public class Member {
+public class Team {
 
     @Id
     @GeneratedValue
+    @Column(name = "team_id")
     private Long id;
 
-    @Column(unique = true,length = 10)
     private String name;
+
+    @OneToMany
+    @JoinColumn(name = "team_id")
+    private List<Member> members = new ArrayList<>();
+
+    public List<Member> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<Member> members) {
+        this.members = members;
+    }
 
     public Long getId() {
         return id;
@@ -36,4 +42,3 @@ public class Member {
         this.name = name;
     }
 }
-

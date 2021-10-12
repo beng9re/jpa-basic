@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -30,6 +31,9 @@ public class Member {
     @ManyToMany
     @JoinTable(name="mamberTable")
     private List<Product> product;
+
+    @OneToMany
+    private List<Order> orders;
 
     @ManyToMany
     @JoinTable(name = "Member_member",

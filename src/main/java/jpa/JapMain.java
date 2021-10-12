@@ -28,9 +28,6 @@ public class JapMain {
 
             tx.commit();
 
-
-
-
         }catch (Exception e){
             tx.rollback();
             e.printStackTrace();
